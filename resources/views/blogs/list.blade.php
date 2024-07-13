@@ -46,7 +46,7 @@
                         <tr>
                             <th>id</th>
                             <th>Title</th>
-                            <th></th>
+                            <th>Image</th>
                             <th>Content</th>
                             <th>Created at</th>
                             <th>Action</th>
@@ -58,7 +58,7 @@
                                     <td>{{ $blog->title }}</td>
                                     <td>
                                         @if ($blog->image != '')
-                                            <img width="50" height="80"
+                                            <img width="90" height="70"
                                                 src="{{ asset('uploads/blogs/' . $blog->image) }}" alt="">
                                         @endif
                                     </td>
@@ -69,10 +69,19 @@
 
 
                                     <td>
-                                        <a href="" class="btn btn-dark ">Edit</a>
-                                        <a href="" class="btn btn-danger ">Delete</a>
+                                        <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-dark">Edit</a>
+
+                                        <button onclick="deleteBlog({{ $blog->id }})"
+                                            class="btn btn-danger">Delete</button>
+
+                                        <form id="delete-blog-form-{{ $blog->id }}"
+                                            action="{{ route('blogs.destroy', $blog->id) }}" method="POST"
+                                            style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
                                     </td>
-                                    <td></td>
+
                                 </tr>
                             @endforeach
                         @endif
@@ -82,6 +91,19 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function deleteBlog(id) {
+            if (confirm('Are you sure you want to delete this blog post?')) {
+                var form = document.getElementById('delete-blog-form-' + id);
+                if (form) {
+                    form.submit();
+                } else {
+                    console.error('Delete form not found for blog ID: ' + id);
+                }
+            }
+        }
+    </script>
 
 </body>
 

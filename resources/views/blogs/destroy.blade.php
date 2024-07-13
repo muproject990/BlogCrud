@@ -27,7 +27,7 @@
                         <h3 class="text-white">Edit Product</h3>
                     </div>
                     <form enctype="multipart/form-data" action="{{ route('blogs.update', $blog->id) }}" method="post">
-                        @method('delete')
+                        @method('put')
                         @csrf
                         {{-- title --}}
                         <div class="card-body">
