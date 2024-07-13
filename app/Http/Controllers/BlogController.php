@@ -25,60 +25,54 @@ class BlogController extends Controller
     }
     public function create()
     {
+
         return view("blogs.create");
     }
     public function store(Request $request)
     {
-
-        Validator::make($request->all(), [
-            $rules = [
-                'title' => ['required', 'min:5'],
-                'content' => ['required'],
-
-            ]
-
+        // Validate the request
+        $validator = Validator::make($request->all(), [
+            'title' => ['required', 'min:5'],
+            'content' => ['required'],
+            'image' => ['image'], // Optionally validate image
         ]);
 
-        if ($request->image != '') {
-            $rules['image'] = 'image';
-        }
-
-        $validator = Validator::make($request->all(), $rules);
-
+        // Check if validation fails
         if ($validator->fails()) {
             return redirect()->route('blogs.create')->withInput()->withErrors($validator);
         }
 
-
+        // Create a new Blog instance
         $blog = new Blog();
-
         $blog->title = $request->title;
         $blog->content = $request->content;
+
+        // Check if there is an authenticated user
+        if (auth()->check()) {
+            $blog->user_id = auth()->user()->id; // Assign the authenticated user's ID
+        } else {
+            // Handle case where there is no authenticated user
+            // For example, you might redirect to login or handle this error case accordingly
+            return redirect()->route('register')->with('error', 'You must be logged in to create a blog post.');
+        }
+
+        // Save the blog post
         $blog->save();
 
-
-        if ($request->image != '') {
-            $image = $request->image;
-            $ext = $image->getClientOriginalExtension();
-            $imageName = time() . '.' . $ext;
-
-            // save img to blogs directory
-
+        // Handle image upload if provided
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
             $image->move(public_path('uploads/blogs'), $imageName);
 
-
-
-            // Save image in DB
+            // Save image path to the blog post
             $blog->image = $imageName;
             $blog->save();
         }
 
-
-
-
-
-        return redirect()->route('blogs.index')->with('success', 'Blog Added Sucessfuly');
+        return redirect()->route('blogs.index')->with('success', 'Blog Added Successfully');
     }
+
     public function edit($id)
     {
         $blogs = Blog::findOrFail($id);
