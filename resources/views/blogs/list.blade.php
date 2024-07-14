@@ -22,7 +22,18 @@ if (Auth::check()) {
 
     <div class="bg-dark py-3">
         <h3 class="text-white text-center">Blog Posts</h3>
+        <!-- resources/views/blogs/list.blade.php -->
+
     </div>
+
+    {{-- Check if user is authenticated --}}
+    @auth
+        <p>Welcome, {{ auth()->user()->name }}</p>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn btn-danger al">Logout</button>
+        </form>
+    @endauth
 
     <div class="container">
         <div class="row justify-content-center mt-4">

@@ -47,12 +47,13 @@ Route::post('/register/post', [UserController::class, 'register'])->name('regist
 // Show the signup form
 Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 
-
+// login
 Route::post('/login/post', [UserController::class, 'login'])->name('login.post');
 
-Auth::routes();
 
 
+// Logout
+Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
 

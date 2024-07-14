@@ -6,24 +6,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Registration</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <style>
         /* Optional: Custom styles */
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+        }
+
         .form-signin {
+            width: 100%;
             max-width: 400px;
+            padding: 15px;
             margin: auto;
+            background-color: #ffffff;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-floating {
+            margin-bottom: 1rem;
         }
     </style>
 </head>
 
-<body class="text-center">
+<body>
 
     <main class="form-signin">
-        <form method="POST" action="{{ route('register.post') }}" class="p-4 border rounded shadow-sm">
+        <form method="POST" action="{{ route('register.post') }}" class="p-4 rounded shadow-sm">
             @csrf
 
-            <h1 class="h3 mb-3 fw-normal">User Registration</h1>
+            <h2 class="mb-4 text-center">User Registration</h2>
 
             <div class="form-floating mb-3">
                 <input type="text" id="name" name="name"
@@ -68,11 +86,14 @@
 
             <button class="w-100 btn btn-lg btn-primary" type="submit">Register</button>
         </form>
+
+        <div class="mt-3 text-center">
+            <p class="mb-0">Already have an account? <a href="{{ route('login') }}">Login here</a></p>
+        </div>
     </main>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
     </script>
 </body>
 

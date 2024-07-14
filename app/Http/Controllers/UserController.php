@@ -60,4 +60,17 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('error', 'Invalid credentials.'); // Redirect back with error message
     }
+
+
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+    }
 }

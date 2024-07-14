@@ -52,11 +52,12 @@
                                 @endforeach
                             </ul>
                         </div>
+                        <br />
                     @endif
+                    <div>
+                        <p class="mb-0">Don't have an account? <a href="{{ route('register') }}">Register here</a></p>
+                    </div>
                 </form>
-                <div>
-                    <p class="mb-0">Don't have an account? <a href="{{ route('register') }}">Register here</a></p>
-                </div>
             </div>
         </div>
     </div>
