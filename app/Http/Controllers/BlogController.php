@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Blog;
 use Illuminate\Http\Request;
+use App\Models\Blog;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 
-
-// use App\Http\Controllers\File;
 
 
 class BlogController extends Controller
@@ -113,6 +111,15 @@ class BlogController extends Controller
 
         $blog->title = $request->title;
         $blog->content = $request->content;
+
+        // Check if there is an authenticated user
+        if (auth()->check()) {
+            $blog->user_id = auth()->user()->id; // Assign the authenticated user's ID
+        } else {
+
+            return redirect()->route('login')->with('error', 'You must be logged in to create a blog post.');
+        }
+
         $blog->save();
 
 

@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\BlogController;
+
+
 
 class UserController extends Controller
 {
@@ -36,5 +40,24 @@ class UserController extends Controller
 
         // Redirect to a specific route or page
         return redirect('/login')->with('success', 'Registration successful!'); // Redirect to home page with success message
+    }
+
+
+
+    public function showLoginForm()
+    {
+        return view('auth.login');
+    }
+
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            return redirect()->intended('/blogs'); // Redirect to intended URL or fallback to /blogs
+        }
+
+        return redirect()->route('login')->with('error', 'Invalid credentials.'); // Redirect back with error message
     }
 }

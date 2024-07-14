@@ -1,3 +1,11 @@
+<?php
+if (Auth::check()) {
+    $userId = Auth::id(); // Get authenticated user's ID
+    echo 'Authenticated User ID: ' . $userId;
+} else {
+    echo 'User not authenticated.';
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -10,6 +18,7 @@
 </head>
 
 <body>
+
 
     <div class="bg-dark py-3">
         <h3 class="text-white text-center">Blog Posts</h3>
@@ -70,6 +79,8 @@
 
                                     <td>
                                         <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-dark">Edit</a>
+
+
 
                                         <button onclick="deleteBlog({{ $blog->id }})"
                                             class="btn btn-danger">Delete</button>
