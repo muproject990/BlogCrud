@@ -74,6 +74,9 @@ class BlogController extends Controller
     public function edit($id)
     {
         $blogs = Blog::findOrFail($id);
+        if (auth()->user()->id !== $blogs->user_id) {
+            dd("You Are Not Authorized  User to edit this post");
+        }
         return view(
             'blogs.edit',
 
@@ -85,7 +88,6 @@ class BlogController extends Controller
     public function update($id, Request $request)
     {
         $blog = Blog::findOrFail($id);
-
 
 
 
@@ -153,6 +155,9 @@ class BlogController extends Controller
     public function destroy($id)
     {
         $blog = Blog::findOrFail($id);
+        if (auth()->user()->id !== $blog->user_id) {
+            dd("You Are Not Authorized  User to Delete this post");
+        }
 
         if ($blog->image) {
             File::delete(public_path('uploads/blogs/' . $blog->image));
