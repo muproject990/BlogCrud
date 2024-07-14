@@ -68,7 +68,6 @@ if (Auth::check()) {
                             <th>Title</th>
                             <th>Image</th>
                             <th>Content</th>
-                            <th>Post By</th>
                             <th>Created at</th>
                             <th>Action</th>
                             <th>Open</th>
@@ -107,7 +106,7 @@ if (Auth::check()) {
                                     </td>
 
                                     <td>
-                                        <a href="{{ route('blogs.edit', $blog->id) }}"
+                                        <a href="{{ route('blogs.open', $blog->id) }}"
                                             class="btn btn-outline-primary">Open</a>
                                     </td>
 

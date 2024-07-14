@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Blog;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 
@@ -166,5 +167,18 @@ class BlogController extends Controller
         $blog->delete();
 
         return redirect()->route('blogs.index')->with('success', 'Blog Deleted Successfully');
+    }
+
+    public function open($id, Request $request)
+    {
+        try {
+            $blog = Blog::findOrFail($id);
+
+            return view('blogs.open', [
+                'blog' => $blog
+            ]);
+        } catch (ModelNotFoundException $e) {
+            dd($e);
+        }
     }
 }
