@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -52,13 +53,18 @@ class UserController extends Controller
 
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/blogs'); // Redirect to intended URL or fallback to /blogs
+            return redirect()->intended('/blogs');
         }
 
-        return redirect()->route('login')->with('error', 'Invalid credentials.'); // Redirect back with error message
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 
 
@@ -73,4 +79,6 @@ class UserController extends Controller
 
         return redirect('/login');
     }
+
+    
 }

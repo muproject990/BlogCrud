@@ -83,4 +83,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/blogs/{blog}/open', [BlogController::class, 'open'])->name('blogs.open');
 
+    // comment
+    Route::get('/blogs/comment
+    ', [BlogController::class, 'blogComment'])->name('blogs.comment');
+
+    Route::post('/blogs/{blog}/comment', [BlogController::class, 'storeComment'])->name('blogs.comment');
+
+    // Route::get('/blogs/{blog}/comments', [BlogController::class, 'showComments'])->name('blogs.comments');
 });

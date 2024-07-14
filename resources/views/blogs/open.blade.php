@@ -32,12 +32,18 @@
                     <div class="card-footer">
                         <h6 class="text-center">Comments</h6>
                         <ul class="list-unstyled">
-                            {{-- @foreach ($blog->comments as $comment)
-                                <li class="border-top pt-2 mt-2 text-center">
-                                    <p>{{ $comment->content }}</p>
-                                    <small class="text-muted">By {{ $comment->user->name }}</small>
-                                </li>
-                            @endforeach --}}
+
+                            <div class="list-group">
+                                @foreach ($blog->comments as $comment)
+                                    <div class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <div class="d-flex w-100 justify-content-between">
+                                            <p class="mb-1">{{ $comment->content }}</p>
+                                        </div>
+                                        <small class="text-muted">By {{ $comment->user->name }}</small>
+                                    </div>
+                                @endforeach
+                            </div>
+
                         </ul>
                     </div>
                 </div>

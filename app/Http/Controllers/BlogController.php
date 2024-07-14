@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Blog;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -180,5 +181,31 @@ class BlogController extends Controller
         } catch (ModelNotFoundException $e) {
             dd($e);
         }
+    }
+
+    public function storeComment(Request $request, $blogId)
+    {
+        $request->validate([
+            'content' => 'required|string|max:1000',
+        ]);
+
+        // $comment->blog_id = $blogId;
+        $comment = new Comment();
+
+        $comment->content = $request->content;
+        $comment->blog_id = $blogId;
+        $comment->user_id = auth()->id();
+
+
+        $comment->save();
+        return redirect()->back()->with('success', 'Comment added successfully!');
+    }
+
+    public function showComments($blogId)
+    {
+        $blog = Blog::findOrFail($blogId);
+        $comments = $blog->comments()->orderBy('created_at', 'desc')->get();
+
+        return view('blogs.comments', compact('blog', 'comments'));
     }
 }
