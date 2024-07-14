@@ -79,6 +79,4 @@ Route::middleware('auth')->group(function () {
     // // delete
 
     Route::delete('/blogs/{blog}', [BlogController::class, 'destroy'])->name('blogs.destroy');
-
-    Route::resource('blogs', BlogController::class);
 });

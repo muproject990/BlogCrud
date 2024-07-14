@@ -64,17 +64,19 @@ if (Auth::check()) {
                 <div class="card-body">
                     <table class="table">
                         <tr>
-                            <th>id</th>
+                            <th>Posted By</th>
                             <th>Title</th>
                             <th>Image</th>
                             <th>Content</th>
+                            <th>Post By</th>
                             <th>Created at</th>
                             <th>Action</th>
+                            <th>Open</th>
                         </tr>
                         @if ($blogs->isNotEmpty())
                             @foreach ($blogs as $blog)
                                 <tr>
-                                    <td>{{ $blog->id }}</td>
+                                    <td>{{ $blog->author->name }}</td>
                                     <td>{{ $blog->title }}</td>
                                     <td>
                                         @if ($blog->image != '')
@@ -102,6 +104,11 @@ if (Auth::check()) {
                                             @csrf
                                             @method('DELETE')
                                         </form>
+                                    </td>
+
+                                    <td>
+                                        <a href="{{ route('blogs.edit', $blog->id) }}"
+                                            class="btn btn-outline-primary">Open</a>
                                     </td>
 
                                 </tr>
