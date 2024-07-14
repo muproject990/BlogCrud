@@ -1,11 +1,3 @@
-<?php
-if (Auth::check()) {
-    $userId = Auth::id(); // Get authenticated user's ID
-    echo 'Authenticated User ID: ' . $userId;
-} else {
-    echo 'User not authenticated.';
-}
-?>
 <!doctype html>
 <html lang="en">
 
@@ -22,6 +14,7 @@ if (Auth::check()) {
 
         .blog-card:hover {
             transform: translateY(-5px);
+            <form class="d-flex" action="{{ route('blogs.index') }}" method="GET"><input class="form-control me-2" type="search" placeholder="Search blogs" aria-label="Search" name="search"><button class="btn btn-outline-light" type="submit">Search</button></form>
         }
     </style>
 </head>
@@ -42,6 +35,16 @@ if (Auth::check()) {
                 @endauth
             </div>
         </div>
+
+        /* Search UI */
+
+        <div>
+            <form class="d-flex" action="{{ route('blogs.search') }}" method="GET">
+                <input class="form-control me-2" type="search" placeholder="Search blogs" aria-label="Search"
+                    name="search">
+                <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+        </div>
     </nav>
 
     <div class="container mt-4">
@@ -54,6 +57,14 @@ if (Auth::check()) {
             </div>
         </div>
 
+
+        {{-- Search --}}
+
+
+
+
+
+        <br>
         @if (Session::has('success'))
             <div class="alert alert-success">
                 {{ Session::get('success') }}

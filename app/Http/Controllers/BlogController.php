@@ -208,4 +208,15 @@ class BlogController extends Controller
 
         return view('blogs.comments', compact('blog', 'comments'));
     }
+
+
+    public function search(Request $request)
+    {
+        $searchTerm = $request->input('search');
+
+        // Query to fetch blogs based on title search
+        $blogs = Blog::where('title', 'like', '%' . $searchTerm . '%')->get();
+
+        return view('blogs.search', compact('blogs'));
+    }
 }
