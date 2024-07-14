@@ -37,50 +37,50 @@ use Illuminate\Support\Facades\Route;
 
 
 /// Show the registration form
-Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
+// Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
 
 // Handle registration form submission
-Route::post('/register/post', [UserController::class, 'register'])->name('register.post');
+// Route::post('/register/post', [UserController::class, 'register'])->name('register.post');
 
 
 
-// Show the signup form
-Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
+// // Show the signup form
+// Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
 
-// login
-Route::post('/login/post', [UserController::class, 'login'])->name('login.post');
-
-
-
-// Logout
-Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+// // login
+// Route::post('/login/post', [UserController::class, 'login'])->name('login.post');
 
 
 
-
-Route::middleware('auth')->group(function () {
-
-    // index
-    Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
-
-    // store
-    Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
-
-    // create
-    Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
+// // Logout
+// Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 
-    // edit
-    Route::get('/blogs/{blog}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
-
-    // update
-    Route::put('/blogs/{blog}/edit', [BlogController::class, 'update'])->name('blogs.update');
-
-    // delete
-
-    Route::delete('/blogs/{blog}', [BlogController::class, 'destroy'])->name('blogs.destroy');
 
 
-    Route::get('/blogs/{blog}/open', [BlogController::class, 'open'])->name('blogs.open');
+// Route::middleware('auth')->group(function () {
 
-});
+//     // index
+//     Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
+
+//     // store
+//     Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
+
+//     // create
+//     Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
+
+
+//     // edit
+//     Route::get('/blogs/{blog}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
+
+//     // update
+//     Route::put('/blogs/{blog}/edit', [BlogController::class, 'update'])->name('blogs.update');
+
+//     // delete
+
+//     Route::delete('/blogs/{blog}', [BlogController::class, 'destroy'])->name('blogs.destroy');
+
+
+//     Route::get('/blogs/{blog}/open', [BlogController::class, 'open'])->name('blogs.open');
+
+// });

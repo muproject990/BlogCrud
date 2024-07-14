@@ -1,11 +1,4 @@
-<?php
-if (Auth::check()) {
-    $userId = Auth::id(); // Get authenticated user's ID
-    echo 'Authenticated User ID: ' . $userId;
-} else {
-    echo 'User not authenticated.';
-}
-?>
+
 <!doctype html>
 <html lang="en">
 
@@ -29,7 +22,7 @@ if (Auth::check()) {
     {{-- Check if user is authenticated --}}
     @auth
         <p>Welcome, {{ auth()->user()->name }}</p>
-        <form method="POST" action="{{ route('logout') }}">
+        <form method="POST" action="">
             @csrf
             <button type="submit" class="btn btn-danger al">Logout</button>
         </form>

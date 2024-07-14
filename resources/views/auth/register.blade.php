@@ -44,38 +44,24 @@
             <h2 class="mb-4 text-center">User Registration</h2>
 
             <div class="form-floating mb-3">
-                <input type="text" id="name" name="name"
-                    class="form-control @error('name') is-invalid @enderror" placeholder="Name"
+                <input type="text" id="name" name="name" class="form-control " placeholder="Name"
                     value="{{ old('name') }}" required autofocus>
                 <label for="name">Name</label>
-                @error('name')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+
             </div>
 
             <div class="form-floating mb-3">
-                <input type="email" id="email" name="email"
-                    class="form-control @error('email') is-invalid @enderror" placeholder="Email address"
+                <input type="email" id="email" name="email" class="form-control " placeholder="Email address"
                     value="{{ old('email') }}" required>
                 <label for="email">Email address</label>
-                @error('email')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+
             </div>
 
             <div class="form-floating mb-3">
-                <input type="password" id="password" name="password"
-                    class="form-control @error('password') is-invalid @enderror" placeholder="Password" required>
+                <input type="password" id="password" name="password" class="form-control " placeholder="Password"
+                    required>
                 <label for="password">Password</label>
-                @error('password')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+
             </div>
 
             <div class="form-floating mb-3">
@@ -88,7 +74,7 @@
         </form>
 
         <div class="mt-3 text-center">
-            <p class="mb-0">Already have an account? <a href="{{ route('login') }}">Login here</a></p>
+            <p class="mb-0">Already have an account? <a href="{{ route('api.login') }}">Login here</a></p>
         </div>
     </main>
 

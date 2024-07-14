@@ -38,8 +38,10 @@ class UserController extends Controller
         // Optionally, you can login the user after registration
         // auth()->login($user);
 
-        // Redirect to a specific route or page
-        return redirect('/login')->with('success', 'Registration successful!'); // Redirect to home page with success message
+
+
+
+        return redirect('api/login')->with('success', 'Registration successful!'); // Redirect to home page with success message
     }
 
 
@@ -55,11 +57,13 @@ class UserController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended('/blogs'); // Redirect to intended URL or fallback to /blogs
+            return redirect()->intended('api/blogs');
         }
 
-        return redirect()->route('login')->with('error', 'Invalid credentials.'); // Redirect back with error message
+        return redirect()->route('login.post')->with('error', 'Invalid credentials.');
     }
+
+
 
 
 
@@ -67,9 +71,7 @@ class UserController extends Controller
     {
         Auth::logout();
 
-        $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
 
         return redirect('/login');
     }
