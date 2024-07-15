@@ -1,32 +1,31 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
 
 class ApiController extends Controller
 {
     public function showRegisterPage(Request $request)
     {
-        return view("auth.register");
+        return view('auth.register');
     }
 
     public function register(Request $request)
     {
         $request->validate([
-            "name" => "required|string",
-            "email" => "required|string|email|unique:users",
-            "password" => "required|confirmed"
+            'name' => 'required|string',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|confirmed',
         ]);
 
         $newUser = User::create([
-            "name" => $request->name,
-            "email" => $request->email,
-            "password" => bcrypt($request->password),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
         ]);
 
         if (!$newUser) {
@@ -38,7 +37,7 @@ class ApiController extends Controller
 
     public function showLoginPage()
     {
-        return view("auth.login");
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -51,40 +50,42 @@ class ApiController extends Controller
 
         $credentials = $request->only('email', 'password');
 
-        if (!Auth::attempt($credentials)) {
-            return response()->json([
-                'message' => 'Invalid credentials',
-            ], 401);
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            // Create access token
+            $token = $user->createToken('Personal Access Token')->accessToken;
+
+            // Store the token and user information in the session
+            session(['token' => $token, 'user' => $user]);
+
+            return redirect()->route('blogs.index');
+        } else {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
         }
-
-        $user = Auth::user();
-        // Create access token
-        $token = $user->createToken('Personal Access Token')->accessToken;
-
-        return dd($token);
     }
-
     public function profile()
     {
         $user = auth()->user();
 
         return response()->json([
-            "status" => true,
-            "message" => "User profile data",
-            "user" => $user
+            'status' => true,
+            'message' => 'User profile data',
+            'user' => $user,
         ]);
     }
 
     public function refreshToken()
     {
         $user = request()->user();
-        $token = $user->createToken("newToken");
+        $token = $user->createToken('newToken');
         $refreshToken = $token->accessToken;
 
         return response()->json([
-            "status" => true,
-            "message" => "Refresh token",
-            "token" => $refreshToken
+            'status' => true,
+            'message' => 'Refresh token',
+            'token' => $refreshToken,
         ]);
     }
 
@@ -93,8 +94,8 @@ class ApiController extends Controller
         request()->user()->tokens()->delete();
 
         return response()->json([
-            "status" => true,
-            "message" => "User logged out"
+            'status' => true,
+            'message' => 'User logged out',
         ]);
     }
 }
