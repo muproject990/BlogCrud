@@ -14,7 +14,9 @@ class BlogController extends Controller
 {
     public function index()
     {
+
         $blogs = Blog::orderBy('created_at', 'DESC')->get();
+        dd($blogs);
         return view(
             'blogs.list',
             [

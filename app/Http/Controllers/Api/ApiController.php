@@ -52,16 +52,18 @@ class ApiController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (!Auth::attempt($credentials)) {
-            return response()->json([
-                'message' => 'Invalid credentials',
-            ], 401);
+            dd("Error");
         }
 
         $user = Auth::user();
         // Create access token
         $token = $user->createToken('Personal Access Token')->accessToken;
 
-        return dd($token);
+        return view('blogs.list', 
+        [
+            'user' => $user,
+         'token' => $token
+        ]);
     }
 
     public function profile()

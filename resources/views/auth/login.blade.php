@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form class="p-4 bg-light rounded shadow" method="POST" action="{{ route('login') }}">
+                <form class="p-4 bg-light rounded shadow" method="POST" action="{{ route('login.post') }}">
                     @csrf
                     <h2 class="mb-4 text-center">Login</h2>
                     <div class="mb-3">
