@@ -59,11 +59,11 @@ class ApiController extends Controller
         // Create access token
         $token = $user->createToken('Personal Access Token')->accessToken;
 
-        return response()->json([
+        return redirect()->route('blogs.index')->with([
             'user' => $user,
             'token' => $token,
-            'redirect' => route('blogs.index'),
         ]);
+
     }
 
     public function profile()
