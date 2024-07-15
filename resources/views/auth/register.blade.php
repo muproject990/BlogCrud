@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <style>
-        /* Optional: Custom styles */
         body {
             display: flex;
             align-items: center;
@@ -36,32 +35,41 @@
 </head>
 
 <body>
-
     <main class="form-signin">
-        <form method="POST" action="{{ route('register.post') }}" class="p-4 rounded shadow-sm">
+        <form method="POST" action="{{ route('register') }}" class="p-4 rounded shadow-sm">
             @csrf
 
             <h2 class="mb-4 text-center">User Registration</h2>
 
+            {{-- Error and Success message --}}
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="alert alert-danger">
+                    {{ session('error') }}
+                </div>
+            @endif
+
             <div class="form-floating mb-3">
-                <input type="text" id="name" name="name" class="form-control " placeholder="Name"
+                <input type="text" id="name" name="name" class="form-control" placeholder="Name"
                     value="{{ old('name') }}" required autofocus>
                 <label for="name">Name</label>
-
             </div>
 
             <div class="form-floating mb-3">
-                <input type="email" id="email" name="email" class="form-control " placeholder="Email address"
+                <input type="email" id="email" name="email" class="form-control" placeholder="Email address"
                     value="{{ old('email') }}" required>
                 <label for="email">Email address</label>
-
             </div>
 
             <div class="form-floating mb-3">
-                <input type="password" id="password" name="password" class="form-control " placeholder="Password"
+                <input type="password" id="password" name="password" class="form-control" placeholder="Password"
                     required>
                 <label for="password">Password</label>
-
             </div>
 
             <div class="form-floating mb-3">
@@ -74,7 +82,7 @@
         </form>
 
         <div class="mt-3 text-center">
-            <p class="mb-0">Already have an account? <a href="{{ route('api.login') }}">Login here</a></p>
+            <p class="mb-0">Already have an account? <a href="{{ route('showLoginPage') }}">Login here</a></p>
         </div>
     </main>
 

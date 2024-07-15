@@ -1,86 +1,17 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\BlogController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('auth.register');
-// });
+// Open Routes
+Route::get('showRegisterPage', [ApiController::class, 'showRegisterPage'])->name('showRegisterPage');
+Route::post('register', [ApiController::class, 'register'])->name('register');
+Route::get('showLoginPage', [ApiController::class, 'showLoginPage'])->name('showLoginPage');
+Route::post('login', [ApiController::class, 'login']);
 
-
-
-// // index
-// Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
-
-// // store
-// Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
-
-// // create
-// Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
-
-
-// // edit
-// Route::get('/blogs/{blog}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
-
-// // update
-// Route::put('/blogs/{blog}/edit', [BlogController::class, 'update'])->name('blogs.update');
-
-// // delete
-
-// Route::delete('/blogs/{blog}', [BlogController::class, 'destroy'])->name('blogs.destroy');
-
-
-
-
-
-/// Show the registration form
-// Route::get('/register', [UserController::class, 'showRegistrationForm'])->name('register');
-
-// Handle registration form submission
-// Route::post('/register/post', [UserController::class, 'register'])->name('register.post');
-
-
-
-// // Show the signup form
-// Route::get('/login', [UserController::class, 'showLoginForm'])->name('login');
-
-// // login
-// Route::post('/login/post', [UserController::class, 'login'])->name('login.post');
-
-
-
-// // Logout
-// Route::post('/logout', [UserController::class, 'logout'])->name('logout');
-
-
-
-
-// Route::middleware('auth')->group(function () {
-
-//     // index
-//     Route::get('/blogs', [BlogController::class, 'index'])->name('blogs.index');
-
-//     // store
-//     Route::post('/blogs', [BlogController::class, 'store'])->name('blogs.store');
-
-//     // create
-//     Route::get('/blogs/create', [BlogController::class, 'create'])->name('blogs.create');
-
-
-//     // edit
-//     Route::get('/blogs/{blog}/edit', [BlogController::class, 'edit'])->name('blogs.edit');
-
-//     // update
-//     Route::put('/blogs/{blog}/edit', [BlogController::class, 'update'])->name('blogs.update');
-
-//     // delete
-
-//     Route::delete('/blogs/{blog}', [BlogController::class, 'destroy'])->name('blogs.destroy');
-
-
-//     Route::get('/blogs/{blog}/open', [BlogController::class, 'open'])->name('blogs.open');
-
-// });
+// Protected Routes
+Route::middleware('auth:api')->group(function () {
+    Route::get('blogs', [BlogController::class, 'index'])->name('blogs.index');
+    Route::get('logout', [ApiController::class, 'logout']);
+    // Route::get('blogs', [BlogController::class, 'index'])->name('blogs.index');
+});

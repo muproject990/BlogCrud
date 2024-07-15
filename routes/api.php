@@ -1,26 +1,23 @@
 <?php
 
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\Api\ApiController;
 
+// // Open Routes
+// Route::get("showRegisterPage", [ApiController::class, "showRegisterPage"])->name("showRegisterPage");
 
-Route::get('register', [UserController::class, 'showRegistrationForm'])->name('register');
+// Route::post("api/register", [ApiController::class, "register"])->name('register');
 
-Route::post('register', [UserController::class, 'register'])->name('register.post');
-
-
-
-Route::get('login', [UserController::class, 'showLoginForm'])->name('api.login');
-
-Route::post('/login', [UserController::class, 'login'])->name('login.post');
+// Route::get("showLoginPage", [ApiController::class, "showLoginPage"])->name("showLoginPage");
+// Route::post("login", [ApiController::class, "login"]);
 
 
 
+// // Protected Routes
+// Route::group([
+//     "middleware" => ["auth:api"]
+// ], function () {
 
-
-Route::middleware('auth:api')->group(function () {
-
-    Route::get('blogs', [BlogController::class, 'index'])->name('blogs.index');
-});
+//     Route::get("profile", [ApiController::class, "profile"]);
+//     Route::get("refresh-token", [ApiController::class, "refreshToken"]);
+//     Route::get("logout", [ApiController::class, "logout"]);
+// });

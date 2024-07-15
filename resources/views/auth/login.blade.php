@@ -15,7 +15,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form class="p-4 bg-light rounded shadow" method="POST" action="{{ route('login.post') }}">
+                <form class="p-4 bg-light rounded shadow" method="POST" action="/login">
                     @csrf
                     <h2 class="mb-4 text-center">Login</h2>
                     <div class="mb-3">
@@ -37,7 +37,8 @@
                     <button type="submit" class="btn btn-primary w-100">Submit</button>
 
                     <div>
-                        <p class="mb-0">Don't have an account? <a href="{{ route('register') }}">Register here</a></p>
+                        <p class="mb-0">Don't have an account? <a href="{{ route('showRegisterPage') }}">Register
+                                here</a></p>
                     </div>
                 </form>
             </div>
