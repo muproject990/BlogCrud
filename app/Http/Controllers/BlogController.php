@@ -155,20 +155,27 @@ class BlogController extends Controller
     }
 
     public function destroy($id)
-    {
-        $blog = Blog::findOrFail($id);
-        if (auth()->user()->id !== $blog->user_id) {
-            dd("You Are Not Authorized  User to Delete this post");
-        }
+{
+            $blog = Blog::findOrFail($id);
+            
+            // Check if the authenticated user is authorized to delete the blog
+            if (auth()->user()->id !== $blog->user_id) {
+                return response()->json(['message' => 'You are not authorized to delete this post'], 403);
+            }
 
-        if ($blog->image) {
-            File::delete(public_path('uploads/blogs/' . $blog->image));
-        }
+            // Delete the associated image if it exists
+            if ($blog->image) {
+                File::delete(public_path('uploads/blogs/' . $blog->image));
+            }
 
-        $blog->delete();
+            // Delete related comments
+            $blog->comments()->delete();
 
-        return redirect()->route('blogs.index')->with('success', 'Blog Deleted Successfully');
-    }
+            // Delete the blog
+            $blog->delete();
+
+            return redirect()->route('blogs.index')->with('success', 'Blog Deleted Successfully');
+}
 
     public function open($id, Request $request)
     {
